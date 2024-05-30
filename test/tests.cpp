@@ -67,24 +67,24 @@ TEST(CircleTest, SetRadiusUpdatesAreaCorrectly) {
   ASSERT_DOUBLE_EQ(PI * radius * radius, c.GetArea());
 }
 
-TEST(CircleTest, SetCircumferenceUpdatesCircumferenceCorrectly) {
+TEST(CircleTest, SetFerenceUpdatesCircumferenceCorrectly) {
   Circle c;
   double circumference = 6.0 * PI;
-  c.SetCircumference(circumference);
+  c.SetFerence(circumference);
   ASSERT_DOUBLE_EQ(circumference, c.GetFerence());
 }
 
-TEST(CircleTest, SetCircumferenceUpdatesRadiusCorrectly) {
+TEST(CircleTest, SetFerenceUpdatesRadiusCorrectly) {
   Circle c;
   double circumference = 6.0 * PI;
-  c.SetCircumference(circumference);
+  c.SetFerence(circumference);
   ASSERT_DOUBLE_EQ(3.0, c.GetRadius());
 }
 
-TEST(CircleTest, SetCircumferenceUpdatesAreaCorrectly) {
+TEST(CircleTest, SetFerenceUpdatesAreaCorrectly) {
   Circle c;
   double circumference = 6.0 * PI;
-  c.SetCircumference(circumference);
+  c.SetFerence(circumference);
   ASSERT_DOUBLE_EQ(9.0 * PI, c.GetArea());
 }
 
