@@ -9,6 +9,7 @@ class Circle {
   double ference;
   double area;
   static double CheckingTheInputData(double radius);
+  void updateDerivedValues();
 
  public:
   explicit Circle(double raduisValue = 0);
