@@ -4,12 +4,12 @@
 
 #include "circle.h"
 
-
 double SolveEarthAndRope(double earthRadius, double ropelength) {
-  Circle circle(earthRadius);
-  Circle newcircle;
-  newcircle.SetFerence(circle.GetFerence() + ropelength);
-  return newcircle.GetRadius() - circle.GetRadius();
+  Circle circleA(earthRadius);
+  Circle circleB;
+  circleB.SetFerence(circleA.GetFerence() + ropelength);
+  auto res = circleB.GetRadius() - circleA.GetRadius();
+  return res;
 }
 
 double SolveSwimmingPool(double poolRadiusMeter, double areaWidthMeter,
@@ -20,5 +20,6 @@ double SolveSwimmingPool(double poolRadiusMeter, double areaWidthMeter,
   double ferencePrice = poolwitharea.GetFerence() * ferencePricePerMeter;
   double areaPrice =
       (poolwitharea.GetArea() - pool.GetArea()) * areaPricePerSquareMeter;
-  return ferencePrice + areaPrice;
+  auto res = ferencePrice + areaPrice;
+  return res;
 }
