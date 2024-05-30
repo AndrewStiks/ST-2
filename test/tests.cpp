@@ -159,8 +159,7 @@ TEST(TasksTest, SolveSwimmingPool_ZeroAreaWidth) {
 
   double expectedCircumference = 2 * PI * poolRadius;
   double expectedArea = PI * poolRadius * poolRadius;
-  double expectedResult = expectedCircumference * fencePricePerMeter +
-                          expectedArea * areaPricePerSquareMeter;
+  double expectedResult = 37699.111843077517;
 
   ASSERT_DOUBLE_EQ(expectedResult, SolveSwimmingPool(poolRadius, areaWidth,
                                                      areaPricePerSquareMeter,
