@@ -19,7 +19,7 @@ TEST(CircleTest, ConstructorInitializesRadiusCorrectly) {
 TEST(CircleTest, ConstructorInitializesCircumferenceCorrectly) {
   double radius = 3.0;
   Circle c(radius);
-  ASSERT_DOUBLE_EQ(2 * PI * radius, c.GetCircumference());
+  ASSERT_DOUBLE_EQ(2 * PI * radius, c.GetFerence());
 }
 
 TEST(CircleTest, ConstructorInitializesAreaCorrectly) {
@@ -34,10 +34,10 @@ TEST(CircleTest, GetRadiusReturnsCorrectValue) {
   ASSERT_DOUBLE_EQ(radius, c.GetRadius());
 }
 
-TEST(CircleTest, GetCircumferenceReturnsCorrectValue) {
+TEST(CircleTest, GetFerenceReturnsCorrectValue) {
   double radius = 3.0;
   Circle c(radius);
-  ASSERT_DOUBLE_EQ(2 * PI * radius, c.GetCircumference());
+  ASSERT_DOUBLE_EQ(2 * PI * radius, c.GetFerence());
 }
 
 TEST(CircleTest, GetAreaReturnsCorrectValue) {
@@ -57,7 +57,7 @@ TEST(CircleTest, SetRadiusUpdatesCircumferenceCorrectly) {
   Circle c;
   double radius = 3.0;
   c.SetRadius(radius);
-  ASSERT_DOUBLE_EQ(2 * PI * radius, c.GetCircumference());
+  ASSERT_DOUBLE_EQ(2 * PI * radius, c.GetFerence());
 }
 
 TEST(CircleTest, SetRadiusUpdatesAreaCorrectly) {
@@ -71,7 +71,7 @@ TEST(CircleTest, SetCircumferenceUpdatesCircumferenceCorrectly) {
   Circle c;
   double circumference = 6.0 * PI;
   c.SetCircumference(circumference);
-  ASSERT_DOUBLE_EQ(circumference, c.GetCircumference());
+  ASSERT_DOUBLE_EQ(circumference, c.GetFerence());
 }
 
 TEST(CircleTest, SetCircumferenceUpdatesRadiusCorrectly) {
@@ -106,5 +106,63 @@ TEST(CircleTest, SetAreaUpdatesCircumferenceCorrectly) {
   Circle c;
   double area = 9.0 * PI;
   c.SetArea(area);
-  ASSERT_DOUBLE_EQ(6.0 * PI, c.GetCircumference());
+  ASSERT_DOUBLE_EQ(6.0 * PI, c.GetFerence());
+}
+
+TEST(TasksTest, SolveEarthAndRope_PositiveValues) {
+  double earthRadius = 6378.1 * 1e3;  // Earth's radius in meters
+  double ropeLength = 1.0;            // 1 meter rope length
+  double expectedResult =
+      (earthRadius * 2 * PI + ropeLength) / (2 * PI) - earthRadius;
+
+  ASSERT_DOUBLE_EQ(expectedResult, SolveEarthAndRope(earthRadius, ropeLength));
+}
+
+TEST(TasksTest, SolveEarthAndRope_ZeroRopeLength) {
+  double earthRadius = 6378.1 * 1e3;
+  double ropeLength = 0.0;
+  double expectedResult = 0.0;
+
+  ASSERT_DOUBLE_EQ(expectedResult, SolveEarthAndRope(earthRadius, ropeLength));
+}
+
+TEST(TasksTest, SolveEarthAndRope_NegativeRopeLength) {
+  double earthRadius = 6378.1 * 1e3;
+  double ropeLength = -1.0;
+  double expectedResult =
+      (earthRadius * 2 * PI - std::abs(ropeLength)) / (2 * PI) - earthRadius;
+
+  ASSERT_DOUBLE_EQ(expectedResult, SolveEarthAndRope(earthRadius, ropeLength));
+}
+
+TEST(TasksTest, SolveSwimmingPool_PositiveValues) {
+  double poolRadius = 3.0;
+  double areaWidth = 1.0;
+  double areaPricePerSquareMeter = 1000.0;
+  double fencePricePerMeter = 2000.0;
+
+  double expectedCircumference = 2 * PI * (poolRadius + areaWidth);
+  double expectedArea = PI * areaWidth * (areaWidth + 2 * poolRadius);
+  double expectedResult = expectedCircumference * fencePricePerMeter +
+                          expectedArea * areaPricePerSquareMeter;
+
+  ASSERT_DOUBLE_EQ(expectedResult, SolveSwimmingPool(poolRadius, areaWidth,
+                                                     areaPricePerSquareMeter,
+                                                     fencePricePerMeter));
+}
+
+TEST(TasksTest, SolveSwimmingPool_ZeroAreaWidth) {
+  double poolRadius = 3.0;
+  double areaWidth = 0.0;
+  double areaPricePerSquareMeter = 1000.0;
+  double fencePricePerMeter = 2000.0;
+
+  double expectedCircumference = 2 * PI * poolRadius;
+  double expectedArea = PI * poolRadius * poolRadius;
+  double expectedResult = expectedCircumference * fencePricePerMeter +
+                          expectedArea * areaPricePerSquareMeter;
+
+  ASSERT_DOUBLE_EQ(expectedResult, SolveSwimmingPool(poolRadius, areaWidth,
+                                                     areaPricePerSquareMeter,
+                                                     fencePricePerMeter));
 }
