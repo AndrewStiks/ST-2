@@ -8,7 +8,7 @@
 #include "circle.h"
 #include "tasks.h"
 
-const double PI = 4 * std::atan(1.0);
+const double PI = 3.14159265358979323846;
 
 TEST(circle, setradius) {
   double radius = 10;
@@ -84,57 +84,56 @@ TEST(circle, setareacheckradius) {
   ASSERT_DOUBLE_EQ(sqrt(area / PI), c.GetRadius());
 }
 
-TEST(circle, setareacheckferecne) {
-  double area = 3;
-  Circle c;
-  c.SetArea(area);
-  ASSERT_DOUBLE_EQ(sqrt(area / PI) * 2 * PI, c.GetFerence());
+TEST(CircleTest, SetAreaUpdatesCircumferenceCorrectly) {
+    double area = 3.0;
+    Circle c;
+    c.SetArea(area);
+    ASSERT_DOUBLE_EQ(std::sqrt(area / PI) * 2 * PI, c.GetCircumference());
 }
 
-TEST(circle, setferencecheckradius) {
-  double ference = 3;
-  Circle c;
-  c.SetFerence(ference);
-  ASSERT_DOUBLE_EQ(ference / 2 / PI, c.GetRadius());
+TEST(CircleTest, SetCircumferenceUpdatesRadiusCorrectly) {
+    double circumference = 3.0;
+    Circle c;
+    c.SetCircumference(circumference);
+    ASSERT_DOUBLE_EQ(circumference / (2 * PI), c.GetRadius());
 }
 
-TEST(circle, setferencecheckarea) {
-  double ference = 3;
-  Circle c;
-  c.SetFerence(ference);
-  ASSERT_DOUBLE_EQ(pow(ference / 2 / PI, 2) * PI, c.GetArea());
+TEST(CircleTest, SetCircumferenceUpdatesAreaCorrectly) {
+    double circumference = 3.0;
+    Circle c;
+    c.SetCircumference(circumference);
+    double radius = circumference / (2 * PI);
+    ASSERT_DOUBLE_EQ(PI * radius * radius, c.GetArea());
 }
 
-TEST(circle, equalcirclesference) {
-  Circle c1(3), c2(3);
-  ASSERT_DOUBLE_EQ(c1.GetFerence(), c2.GetFerence());
+TEST(CircleTest, EqualRadiiResultsInEqualCircumferences) {
+    Circle c1(3.0), c2(3.0);
+    ASSERT_DOUBLE_EQ(c1.GetCircumference(), c2.GetCircumference());
 }
 
-TEST(circle, equalcirclesarea) {
-  Circle c1(3), c2(3);
-  ASSERT_DOUBLE_EQ(c1.GetArea(), c2.GetArea());
+TEST(CircleTest, EqualRadiiResultsInEqualAreas) {
+    Circle c1(3.0), c2(3.0);
+    ASSERT_DOUBLE_EQ(c1.GetArea(), c2.GetArea());
 }
 
-TEST(tasks, earthandrope) {
-  double earthRadiusMeters = 6378.1 * 1e3;
-  double earthL = earthRadiusMeters * 2 * PI;
-  double actualResultMeters = (earthL + 1) / 2 / PI - earthRadiusMeters;
+TEST(TasksTest, EarthAndRope) {
+    double earthRadiusMeters = 6378.1 * 1e3;
+    double earthCircumference = earthRadiusMeters * 2 * PI;
+    double actualResultMeters = (earthCircumference + 1) / (2 * PI) - earthRadiusMeters;
 
-  ASSERT_DOUBLE_EQ(SolveEarthAndRope(earthRadiusMeters, 1), actualResultMeters);
+    ASSERT_DOUBLE_EQ(SolveEarthAndRope(earthRadiusMeters, 1), actualResultMeters);
 }
 
-TEST(tasks, swimming_pool) {
-  double poolRadius = 3;
-  double areaWidth = 1;
+TEST(TasksTest, SwimmingPool) {
+    double poolRadius = 3.0;
+    double areaWidth = 1.0;
 
-  double meterFerencePrice = 2000;
-  double squareMeterAreaPrice = 1000;
+    double meterCircumferencePrice = 2000.0;
+    double squareMeterAreaPrice = 1000.0;
 
-  double ferencePrice = 2 * PI * (poolRadius + areaWidth) * meterFerencePrice;
-  double areaPrice =
-      PI * areaWidth * (areaWidth + 2 * poolRadius) * squareMeterAreaPrice;
+    double circumferencePrice = 2 * PI * (poolRadius + areaWidth) * meterCircumferencePrice;
+    double areaPrice = PI * areaWidth * (areaWidth + 2 * poolRadius) * squareMeterAreaPrice;
 
-  ASSERT_DOUBLE_EQ(SolveSwimmingPool(poolRadius, areaWidth,
-                                     squareMeterAreaPrice, meterFerencePrice),
-                   ferencePrice + areaPrice);
+    ASSERT_DOUBLE_EQ(SolveSwimmingPool(poolRadius, areaWidth, squareMeterAreaPrice, meterCircumferencePrice),
+                     circumferencePrice + areaPrice);
 }
